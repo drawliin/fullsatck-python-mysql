@@ -8,10 +8,10 @@ app = Flask(__name__)
 CORS(app)  # Enable Cross-Origin Resource Sharing (CORS)
 
 # MySQL Configuration
-app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST', 'localhost')
-app.config['MYSQL_USER'] = os.getenv('MYSQL_USER', 'root')
-app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD', 'password')
-app.config['MYSQL_DB'] = os.getenv('MYSQL_DB', 'test')
+app.config['MYSQL_HOST'] = os.getenv('DB_HOST', 'localhost')
+app.config['MYSQL_USER'] = os.getenv('DB_USER', 'root')
+app.config['MYSQL_PASSWORD'] = os.getenv('DB_PASSWORD', 'password')
+app.config['MYSQL_DB'] = os.getenv('DB_NAME', 'test')
 
 mysql = MySQL(app)
 
