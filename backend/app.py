@@ -16,7 +16,7 @@ app.config['MYSQL_DB'] = os.getenv('DB_NAME', 'test')
 mysql = MySQL(app)
 
 # Route to get all users
-@app.route('/users', methods=['GET'])
+@app.route('/api/users', methods=['GET'])
 def get_users():
     cursor = mysql.connection.cursor()
     cursor.execute("SELECT * FROM users")
@@ -26,7 +26,7 @@ def get_users():
     return jsonify(users_list)
 
 # Route to add a new user
-@app.route('/users', methods=['POST'])
+@app.route('/api/users', methods=['POST'])
 def create_user():
     data = request.get_json()
     name = data['name']
@@ -37,7 +37,7 @@ def create_user():
     return jsonify({'message': 'User created successfully'}), 201
 
 # Route to update user
-@app.route('/users/<int:id>', methods=['PUT'])
+@app.route('/api/users/<int:id>', methods=['PUT'])
 def update_user(id):
     data = request.get_json()
     name = data['name']
@@ -48,7 +48,7 @@ def update_user(id):
     return jsonify({'message': 'User updated successfully'})
 
 # Route to delete a user
-@app.route('/users/<int:id>', methods=['DELETE'])
+@app.route('/api/users/<int:id>', methods=['DELETE'])
 def delete_user(id):
     cursor = mysql.connection.cursor()
     cursor.execute("DELETE FROM users WHERE id=%s", (id,))

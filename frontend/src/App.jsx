@@ -7,6 +7,8 @@ function App() {
   const [updateUserName, setUpdateUserName] = useState('');
   const [updateUserId, setUpdateUserId] = useState(null);
   const port = process.env.REACT_APP_PORT || 4002
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4002/api';
+
 
   // Fetch users when the component mounts
   useEffect(() => {
@@ -15,14 +17,14 @@ function App() {
 
   // Function to fetch all users
   const fetchUsers = () => {
-    axios.get(`http://localhost:${port}/users`)
+    axios.get(`${API_URL}/users`)
       .then(response => setUsers(response.data))
       .catch(error => console.error('Error fetching users:', error));
   };
 
   // Handle adding a new user
   const handleAddUser = () => {
-    axios.post(`http://localhost:${port}/users`, { name: newUserName })
+    axios.post(`${API_URL}/users`, { name: newUserName })
       .then(() => {
         setNewUserName('');
         fetchUsers();  // Fetch updated users list
@@ -32,7 +34,7 @@ function App() {
 
   // Handle updating a user
   const handleUpdateUser = () => {
-    axios.put(`http://localhost:${port}/users/${updateUserId}`, { name: updateUserName })
+    axios.put(`${API_URL}/users/${updateUserId}`, { name: updateUserName })
       .then(() => {
         setUpdateUserName('');
         setUpdateUserId(null);
@@ -43,7 +45,7 @@ function App() {
 
   // Handle deleting a user
   const handleDeleteUser = (id) => {
-    axios.delete(`http://localhost:${port}/users/${id}`)
+    axios.delete(`${API_URL}/users/${id}`)
       .then(() => {
         fetchUsers();  // Fetch updated users list
       })
